@@ -1,6 +1,7 @@
 public class Operador extends Usuario {
 	
-	public Operador () {
+	public Operador (Biblioteca estaBiblioteca, int id) {
+		super(estaBiblioteca, id);
 		this.ehOperador = true;
 	}
 	
