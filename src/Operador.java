@@ -5,8 +5,8 @@ public class Operador extends Usuario {
 		this.ehOperador = true;
 	}
 	
-	private void CadastrarItem(Item itemNovo) {
-		System.out.println("item cadastrado");
+	public String pedirParaCadastrarItem(Item itemNovo) {
+		return estaBiblioteca.NovoItem(itemNovo, this);
 	}
 
 }

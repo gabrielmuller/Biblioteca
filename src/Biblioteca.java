@@ -13,42 +13,73 @@ public class Biblioteca {
 		usuarios = new Usuario[20];
 	}
 	
-	public Item getItemByName(String name) {
-		return new Livro();
+	public Item getItemByName(String n) {
+		Item resultado = null;
+		for (int i = 0; i < itens.length && resultado == null; i++) {
+			if (itens[i].nome == n) {
+				resultado = itens[i];
+			}
+		}
+		return resultado;
 	}
 	
-	public Item getItemById(int id) {
-		return new Livro(); 
+	public String NovoItem(Item i, Usuario u) {
+		String resultado = "Item nao cadastrado.";
+		if (u.ehOperador) {
+			itens[quantidadeItens] = i;
+			quantidadeItens++;
+			resultado = "Item cadastrado";
+		}
+		return resultado;
 	}
 	
-	public void NovoItem(Item i) {
-		
+	public String LocarItem(int id, Usuario u) {
+		String resultado;
+		if (itens[id] == null) {
+			resultado = "Item nao existe!";
+		} else if (itens[id].exemplaresDispo <= 0) {
+			resultado = "Item esgotado!";
+		} else if (u.meusItens[id]) {
+			resultado = "Voce ja tem este item!";
+		} else {
+			itens[id].exemplaresDispo--;
+			u.meusItens[id] = true;
+			resultado = "Item locado.";
+		}
+		return resultado;
 	}
 	
-	public void LocarItem(Item i, Usuario u) {
-		
+	public String DevolverItem(int id, Usuario u) {
+		String resultado;
+		if (itens[id] == null) {
+			resultado = "Item nao existe!";
+		} else if (!u.meusItens[id]) {
+			resultado = "Voce nao tem este item!";
+		} else {
+			itens[id].exemplaresDispo++;
+			u.meusItens[id] = false;
+			resultado = "Item devolvido.";
+		}
+		return resultado;
 	}
 	
-	public void DevolverItem(Item i, Usuario u) {
-		
+	public InformacoesDeItem ConsultarItem(int id) {
+		Item esteItem = itens[id];
+		InformacoesDeItem resultado = new InformacoesDeItem(esteItem.numExemplares, esteItem.nome);
+		resultado.exemplaresDispo = esteItem.exemplaresDispo;
+		resultado.id = id;
+		return resultado;
 	}
 	
-	public void ConsultarItem(Item i) {
-		
-	}
-	
-	public void printQtd () {
-		System.out.println(quantidadeUsuarios);
-	}
-	
-	public Usuario NovoUsuarioVinculado(boolean ehOperador) { //cria um usuario com referencia a esta biblioteca
+	public Usuario NovoUsuarioVinculado(String nome, boolean ehOperador) { //cria um usuario com referencia a esta biblioteca
 		Usuario novoUsu = null;
 		if (quantidadeUsuarios < 20) {
 			if (ehOperador) {
-				novoUsu = new Operador(this, 10000 + quantidadeUsuarios);
+				novoUsu = new Operador(this, quantidadeUsuarios);
 			} else {
 				novoUsu = new Usuario(this, quantidadeUsuarios);
 			}
+			usuarios[quantidadeUsuarios] = novoUsu;
 			quantidadeUsuarios++;
 		} else if (quantidadeUsuarios == 20) {
 			System.err.println("O array de usuarios esta cheio!");
@@ -58,5 +89,9 @@ public class Biblioteca {
 		
 		return novoUsu;
 		
+	}
+	
+	public int getItensLength () {
+		return itens.length;
 	}
 }
