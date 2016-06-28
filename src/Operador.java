@@ -6,7 +6,7 @@ public class Operador extends Usuario {
 	}
 	
 	public String pedirParaCadastrarItem(Item itemNovo) {
-		return estaBiblioteca.NovoItem(itemNovo, this);
+		return estaBiblioteca.novoItem(itemNovo, this);
 	}
 
 }

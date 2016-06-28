@@ -2,8 +2,8 @@ public class Principal {
 
 	public static void main(String[] args) {
 		Biblioteca principal = new Biblioteca();
-		Usuario admin = principal.NovoUsuarioVinculado("Joao", true);
-		Usuario comum = principal.NovoUsuarioVinculado("Jose", false);
+		Usuario admin = principal.novoUsuarioVinculado("Joao", true);
+		Usuario comum = principal.novoUsuarioVinculado("Jose", false);
 		
 		Livro a = new Livro(2, "Hello world", "John", 6);
 		Livro b = new Livro(0, "Dom Casmurro", "Machado de Assis", 5);
