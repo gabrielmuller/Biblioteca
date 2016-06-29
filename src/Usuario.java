@@ -20,7 +20,7 @@ public class Usuario {
 	}
 
 	public String listaDeItensLocados() {
-		String resultado = "";
+		String resultado = "Voce tem os seguintes livros: \n";
 		Locacao[] minhasLoc = estaBiblioteca.getLocacoes(this);
 		for (int i = 0; i < minhasLoc.length; i++) {
 			int idDestaLoc = minhasLoc[i].id;
@@ -33,7 +33,7 @@ public class Usuario {
 	}
 
 	protected Locacao getLocacaoDoItem(int id) {
-		//se o usuario tiver item, retorna a locacao deste item.
+		//se o usuario tiver item, retorna uma COPIA da locacao deste item.
 		//se nao tiver, retorna null
 		Locacao resultado = null;
 		Locacao[] minhasLoc = estaBiblioteca.getLocacoes(this);
