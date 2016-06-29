@@ -44,5 +44,11 @@ public class Usuario {
 		}
 		return resultado;
 	}
+	
+	protected String dataDeDevolucao(int id) {
+		return "implementar";
+		//retorna a data de devolucao se tiver a locacao
+		//ou uma mensagem de erro se nao tiver
+	}
 
 }
