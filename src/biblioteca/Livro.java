@@ -1,3 +1,4 @@
+package biblioteca;
 
 public class Livro extends Item {
 	private String autor;
@@ -8,9 +9,5 @@ public class Livro extends Item {
 		this.autor = autor;
 		this.edicao = edicao;
 	}
-	
-
-	
-	
-	
+		
 }
