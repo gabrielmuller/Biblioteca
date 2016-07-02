@@ -8,9 +8,5 @@ public class Livro extends Item {
 		this.autor = autor;
 		this.edicao = edicao;
 	}
-	
-
-	
-	
-	
+		
 }

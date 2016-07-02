@@ -1,4 +1,4 @@
-implementar o método dataDeDevolucao na classe Usuario
-criar uma interface (ou classe abstrata) que a biblioteca implementa
-fazer mais testes pra ver se tudo funciona mesmo
-criar um ou mais tipos de item (revista, dvd...)
+DONE - implementar o método dataDeDevolucao na classe Usuario
+DONE - criar uma interface (ou classe abstrata) que a biblioteca implementa
+(testei mais umas coisas) - fazer mais testes pra ver se tudo funciona mesmo
+DONE - criar um ou mais tipos de item (revista, dvd...)

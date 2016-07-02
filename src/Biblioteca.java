@@ -1,5 +1,4 @@
-
-public class Biblioteca {
+public class Biblioteca implements InterfBiblioteca {
 
 	private Item[] itens;
 	private Usuario[] usuarios;

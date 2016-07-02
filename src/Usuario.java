@@ -46,7 +46,15 @@ public class Usuario {
 	}
 	
 	protected String dataDeDevolucao(int id) {
-		return "implementar";
+		String resultado;
+		Locacao atual = getLocacaoDoItem(id);
+		if (atual == null) {
+			resultado = "Este usuario nao possui este item.";
+		}
+		else {
+			resultado = atual.getPrazo();
+		}
+		return resultado;
 		//retorna a data de devolucao se tiver a locacao
 		//ou uma mensagem de erro se nao tiver
 	}

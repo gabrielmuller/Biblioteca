@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 public class Locacao {
@@ -8,7 +9,6 @@ public class Locacao {
 		this.id = id;
 		prazoDeDevolucao = new GregorianCalendar();
 		prazoDeDevolucao.add(GregorianCalendar.DAY_OF_MONTH, periodo);
-
 	}
 	
 	public Locacao() {
@@ -28,5 +28,12 @@ public class Locacao {
 	protected void reset() {
 		id = -1;
 		prazoDeDevolucao = new GregorianCalendar();
+	}
+	
+	public String getPrazo() {
+		SimpleDateFormat prazo = new SimpleDateFormat("dd-MMM-yyyy");
+		prazo.setCalendar(this.prazoDeDevolucao);
+		String prazoFormatado = prazo.format(this.prazoDeDevolucao.getTime());
+		return prazoFormatado;
 	}
 }

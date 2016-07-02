@@ -11,6 +11,4 @@ public abstract class Item {
 		this.exemplaresDispo = numExemplares;
 		this.nome = nome;
 	}
-	
-	
 }
