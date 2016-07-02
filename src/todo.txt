@@ -1,0 +1,4 @@
+implementar o método dataDeDevolucao na classe Usuario
+criar uma interface (ou classe abstrata) que a biblioteca implementa
+fazer mais testes pra ver se tudo funciona mesmo
+criar um ou mais tipos de item (revista, dvd...)
