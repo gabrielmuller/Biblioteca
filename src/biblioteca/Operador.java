@@ -1,3 +1,4 @@
+package biblioteca;
 public class Operador extends Usuario {
 
 	public Operador(Biblioteca estaBiblioteca, int id) {

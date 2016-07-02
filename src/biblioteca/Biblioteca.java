@@ -1,3 +1,4 @@
+package biblioteca;
 public class Biblioteca implements InterfBiblioteca {
 
 	private Item[] itens;

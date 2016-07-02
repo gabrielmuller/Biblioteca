@@ -1,3 +1,4 @@
+package biblioteca;
 
 public class Revista extends Item {
 	private String editora;

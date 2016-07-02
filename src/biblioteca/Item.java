@@ -1,4 +1,4 @@
-
+package biblioteca;
 public abstract class Item {
 	protected int id; //id entre 0 e 20, -1 quando sem id
 	protected int numExemplares;

@@ -1,3 +1,4 @@
+package biblioteca;
 
 public class Usuario {
 	protected int id; // de 0 a 20

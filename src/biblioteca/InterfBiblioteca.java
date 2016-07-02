@@ -1,3 +1,4 @@
+package biblioteca;
 public interface InterfBiblioteca {
 	public String novoItem(Item i, Usuario u);
 	public String locarItem(int id, Usuario u);
