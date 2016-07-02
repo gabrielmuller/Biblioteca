@@ -1,8 +1,8 @@
 package biblioteca;
 public class Operador extends Usuario {
 
-	public Operador(Biblioteca estaBiblioteca, int id) {
-		super(estaBiblioteca, id);
+	public Operador(Biblioteca estaBiblioteca, int id, String nome) {
+		super(estaBiblioteca, id, nome);
 		this.ehOperador = true;
 	}
 

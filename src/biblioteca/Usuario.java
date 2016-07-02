@@ -4,16 +4,21 @@ public class Usuario {
 	protected int id; // de 0 a 20
 	protected boolean ehOperador;
 	protected Biblioteca estaBiblioteca;
-
-	public Usuario(Biblioteca estaBiblioteca, int id) {
+	protected String nome;
+	public Usuario(Biblioteca estaBiblioteca, int id, String nome) {
 		this.estaBiblioteca = estaBiblioteca;
 		this.id = id;
+		this.nome = nome;
 		ehOperador = false;
 
 	}
 
 	public String pedirParaLocarItem(int id) {
-		return estaBiblioteca.locarItem(id, this);
+		return estaBiblioteca.locarItem(id, this, "");
+	}
+	
+	public String pedirParaLocarItem(String nome) {
+		return estaBiblioteca.locarItem(estaBiblioteca.getItem(nome), this, nome);
 	}
 
 	public String pedirParaDevolverItem(int id) {
@@ -21,7 +26,7 @@ public class Usuario {
 	}
 
 	public String listaDeItensLocados() {
-		String resultado = "Voce tem os seguintes livros: \n";
+		String resultado = "Ola " + nome + ", voce tem os seguintes itens: \n";
 		Locacao[] minhasLoc = estaBiblioteca.getLocacoes(this);
 		for (int i = 0; i < minhasLoc.length; i++) {
 			int idDestaLoc = minhasLoc[i].id;

@@ -1,4 +1,5 @@
 package biblioteca;
+
 public class Biblioteca implements InterfBiblioteca {
 
 	private Item[] itens;
@@ -21,18 +22,20 @@ public class Biblioteca implements InterfBiblioteca {
 		}
 	}
 
-	public Item getItem(String nome) {
-		Item resultado = null;
-		for (int i = 0; i < itens.length && resultado == null; i++) {
-			if (itens[i].nome == nome) {
-				resultado = itens[i];
+	public int getItem(String nome) {
+		Item item = null;
+		for (int i = 0; i < itens.length && item == null; i++) {
+			if (itens[i] != null) {
+				if (itens[i].nome == nome) {
+					item = itens[i];
+				}
 			}
 		}
+		int resultado = -1;
+		if (item != null) {
+			resultado = item.id;
+		}
 		return resultado;
-	}
-
-	public Item getItem(int id) {
-		return itens[id];
 	}
 
 	public Locacao[] getLocacoes(Usuario u) { // envia suas locacoes para
@@ -46,33 +49,47 @@ public class Biblioteca implements InterfBiblioteca {
 	}
 
 	public String novoItem(Item i, Usuario u) {
-		String resultado = "Item nao cadastrado.";
+		String resultado = "Item " + i.nome + " nao cadastrado: voce nao eh operador!";
 		if (u.ehOperador) {
 			itens[quantidadeItens] = i;
+			i.id = quantidadeItens;
+
 			quantidadeItens++;
-			resultado = "Item cadastrado";
+			resultado = "Item " + i.nome + " cadastrado.";
 		}
 		return resultado;
 	}
 
-	public String locarItem(int id, Usuario u) {
+	public String locarItem(int id, Usuario u, String nomePedido) {
 		String resultado;
-		if (itens[id] == null) {
+		String nomeDoItem = "N/A";
+		if (nomePedido != "") {
+			nomeDoItem = nomePedido;
+		}
+		
+		if (id < 0 || id >= itens.length) {
 			resultado = "Item nao existe!";
-		} else if (itens[id].exemplaresDispo <= 0) {
-			resultado = "Item esgotado!";
-		} else if (u.getLocacaoDoItem(id) != null) {
-			resultado = "Voce ja tem este item!";
+		} else if (itens[id] == null) {
+			resultado = "Item nao existe!";
 		} else {
-			Locacao l = new Locacao(id, periodoDeEmprestimo);
-			boolean sucesso = addLocacao(locacoes[u.id], l);
-			if (sucesso) {
-				resultado = "Item locado com sucesso.";
+			nomeDoItem = itens[id].nome;
+			if (itens[id].exemplaresDispo <= 0) {
+				resultado = "Item esgotado!";
+			} else if (u.getLocacaoDoItem(id) != null) {
+				resultado = "Voce ja tem este item!";
 			} else {
-				resultado = "Voce tem itens demais.";
+				Locacao l = new Locacao(id, periodoDeEmprestimo);
+				boolean sucesso = addLocacao(locacoes[u.id], l);
+				if (sucesso) {
+					resultado = "Item locado com sucesso.";
+					itens[id].exemplaresDispo--;
+				} else {
+					resultado = "Voce tem itens demais.";
+				}
 			}
 		}
-		return resultado;
+
+		return "Pedido de locacao do item " + nomeDoItem + " por " + u.nome + ": " + resultado;
 	}
 
 	private boolean addLocacao(Locacao[] ll, Locacao l) {
@@ -95,17 +112,17 @@ public class Biblioteca implements InterfBiblioteca {
 			resultado = "Voce nao tem este item!";
 		} else {
 			itens[id].exemplaresDispo++;
-			
-			//reseta a locacao do item escolhido
+
+			// reseta a locacao do item escolhido
 			estaLoc.reset();
 			resultado = "Item devolvido.";
 		}
-		return resultado;
+		return "Pedido de devolucao do item " + itens[id].nome + " por " + u.nome + ": " + resultado;
 	}
 
 	private Locacao getLocacaoDoItem(int id, Usuario u) {
-		//se o usuario tiver item, retorna a locacao deste item.
-		//se nao tiver, retorna null
+		// se o usuario tiver item, retorna a locacao deste item.
+		// se nao tiver, retorna null
 		Locacao resultado = null;
 		for (int i = 0; i < locacoes[u.id].length && resultado == null; i++) {
 			if (id == locacoes[u.id][i].id) {
@@ -123,14 +140,14 @@ public class Biblioteca implements InterfBiblioteca {
 		return resultado;
 	}
 
-	public Usuario novoUsuarioVinculado(String nome, boolean ehOperador) { 
-		//cria um usuario com referencia a esta biblioteca
+	public Usuario novoUsuarioVinculado(String nome, boolean ehOperador) {
+		// cria um usuario com referencia a esta biblioteca
 		Usuario novoUsu = null;
 		if (quantidadeUsuarios < 20) {
 			if (ehOperador) {
-				novoUsu = new Operador(this, quantidadeUsuarios);
+				novoUsu = new Operador(this, quantidadeUsuarios, nome);
 			} else {
-				novoUsu = new Usuario(this, quantidadeUsuarios);
+				novoUsu = new Usuario(this, quantidadeUsuarios, nome);
 			}
 			usuarios[quantidadeUsuarios] = novoUsu;
 			quantidadeUsuarios++;
