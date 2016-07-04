@@ -103,21 +103,32 @@ public class Biblioteca implements InterfBiblioteca {
 		return resultado;
 	}
 
-	public String devolverItem(int id, Usuario u) {
+	public String devolverItem(int id, Usuario u, String nomePedido) {
 		String resultado;
-		Locacao estaLoc = getLocacaoDoItem(id, u);
-		if (itens[id] == null) {
-			resultado = "Item nao existe!";
-		} else if (estaLoc == null) {
-			resultado = "Voce nao tem este item!";
-		} else {
-			itens[id].exemplaresDispo++;
-
-			// reseta a locacao do item escolhido
-			estaLoc.reset();
-			resultado = "Item devolvido.";
+		String nomeDoItem = "N/A";
+		if (nomePedido != "") {
+			nomeDoItem = nomePedido;
 		}
-		return "Pedido de devolucao do item " + itens[id].nome + " por " + u.nome + ": " + resultado;
+		
+		Locacao estaLoc = getLocacaoDoItem(id, u);
+		if (id < 0 || id >= itens.length) {
+			resultado = "Item nao existe!";
+		} else if (itens[id] == null) {
+			resultado = "Item nao existe!";
+		} else {
+			nomeDoItem = itens[id].nome;
+			if (estaLoc == null) {
+				resultado = "Voce nao tem este item!";
+			} else {
+				itens[id].exemplaresDispo++;
+
+				// reseta a locacao do item escolhido
+				estaLoc.reset();
+				resultado = "Item devolvido.";
+			}
+		}
+
+		return "Pedido de devolucao do item " + nomeDoItem + " por " + u.nome + ": " + resultado;
 	}
 
 	private Locacao getLocacaoDoItem(int id, Usuario u) {

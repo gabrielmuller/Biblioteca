@@ -22,7 +22,11 @@ public class Usuario {
 	}
 
 	public String pedirParaDevolverItem(int id) {
-		return estaBiblioteca.devolverItem(id, this);
+		return estaBiblioteca.devolverItem(id, this, "");
+	}
+	
+	public String pedirParaDevolverItem(String nome) {
+		return estaBiblioteca.devolverItem(estaBiblioteca.getItem(nome), this, nome);
 	}
 
 	public String listaDeItensLocados() {

@@ -9,5 +9,13 @@ public class Operador extends Usuario {
 	public String pedirParaCadastrarItem(Item itemNovo) {
 		return estaBiblioteca.novoItem(itemNovo, this);
 	}
+	
+	public String pedirParaCadastrarItem(Item[] itensNovos) {
+		String resultado = "";
+		for (Item itemNovo : itensNovos) {
+			resultado = resultado + "\n" + estaBiblioteca.novoItem(itemNovo, this);
+		}
+		return resultado;
+	}
 
 }
